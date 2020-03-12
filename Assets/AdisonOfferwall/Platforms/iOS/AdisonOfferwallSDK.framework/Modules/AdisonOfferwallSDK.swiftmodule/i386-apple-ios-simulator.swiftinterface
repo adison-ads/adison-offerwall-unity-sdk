@@ -1,0 +1,721 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+// swift-module-flags: -target i386-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name AdisonOfferwallSDK
+import AdSupport
+@_exported import AdisonOfferwallSDK
+import CoreGraphics
+import CoreTelephony
+import Foundation
+import JavaScriptCore
+import Security
+import Swift
+import UIKit
+import WebPDecoder
+public protocol ProductDetailView : AnyObject {
+}
+public protocol ProductDetailPresenter {
+}
+public struct StatusInfo : Swift.Codable {
+  public var title: Swift.String
+  public var desc: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct Policy : Swift.Codable {
+  public let content: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc public class AdisonParameters : ObjectiveC.NSObject {
+  public static let os: Swift.String
+  public static let osVer: Swift.String
+  public static let model: Swift.String
+  public static var sdkVer: Swift.String {
+    get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class NavigationController : UIKit.UINavigationController {
+  @objc override dynamic public func viewDidLoad()
+  @objc public func backButtonClicked()
+  @objc override dynamic public func dismiss(animated flag: Swift.Bool, completion: (() -> Swift.Void)? = nil)
+  @objc override dynamic public var supportedInterfaceOrientations: UIKit.UIInterfaceOrientationMask {
+    @objc get
+  }
+  @available(iOS 5.0, *)
+  @objc override dynamic public init(navigationBarClass: Swift.AnyClass?, toolbarClass: Swift.AnyClass?)
+  @objc override dynamic public init(rootViewController: UIKit.UIViewController)
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc deinit
+}
+public class AdisonPointsApiClient {
+  public class func getUser(uid: Swift.String, onSuccess: @escaping (Foundation.URLResponse?, AdisonOfferwallSDK.User) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  public class func registUser(uid: Swift.String, onSuccess: @escaping (AdisonOfferwallSDK.User) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  public class func updateUser(uid: Swift.String, productId: Swift.Int, onSuccess: @escaping (AdisonOfferwallSDK.User) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  public class func getProductList(uid: Swift.String?, onSuccess: @escaping ([AdisonOfferwallSDK.Product]) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  public class func getPointsHistoryList(uid: Swift.String?, onSuccess: @escaping ([AdisonOfferwallSDK.PointsHistory]) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  public class func getPurchaseList(uid: Swift.String?, onSuccess: @escaping ([AdisonOfferwallSDK.Purchase]) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  public class func getProductDetail(uid: Swift.String?, productId: Swift.Int, onSuccess: @escaping (AdisonOfferwallSDK.Product) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  public class func requestConfirmCode(productId: Swift.Int, phoneNum: Swift.String, onSuccess: @escaping () -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  public class func checkConfirmCode(productId: Swift.Int, phoneNum: Swift.String, code: Swift.String, onSuccess: @escaping () -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  public class func postPurchase(productId: Swift.Int, phoneNum: Swift.String, code: Swift.String, onSuccess: @escaping (AdisonOfferwallSDK.User) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  public class func getPrivacyPolicy(onSuccess: @escaping (AdisonOfferwallSDK.Policy) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  @objc deinit
+}
+public struct AgeFilter : Swift.Codable {
+  public var from: Swift.Int
+  public var to: Swift.Int
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc open class AdisonGiftOfwConfig : AdisonOfferwallSDK.AdisonConfig {
+  @objc public var startButtonName: Swift.String?
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct ParticipateResult : Swift.Codable {
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct PolicyResult : Swift.Codable {
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct PointsHistoryList : Swift.Codable {
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct PointsHistory : Swift.Codable {
+  public let campaignName: Swift.String?
+  public let points: Swift.Int?
+  public let createdAt: Swift.String?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct Product : Swift.Codable {
+  public var id: Swift.Int
+  public var name: Swift.String
+  public var companyName: Swift.String
+  public var thumbnailUrl: Swift.String
+  public var price: Swift.Int
+  public var duration: Swift.Int?
+  public var itemInfo: Swift.String?
+  public var status: Swift.String?
+  public var expirationText: Swift.String?
+  public var statusInfos: AdisonOfferwallSDK.StatusInfo?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc public protocol RewardDisplayable : AnyObject {
+  @objc func setAvailableReward(name: Swift.String?, unit: Swift.String?, points: Swift.Int)
+}
+extension UIView {
+  public func safeAddSubView(subView: UIKit.UIView, viewTag: Swift.Int = 1000000)
+}
+public protocol NibLoadable : AnyObject {
+  static var nibName: Swift.String { get }
+  static var bundle: Foundation.Bundle? { get }
+}
+extension NibLoadable {
+  public static var bundle: Foundation.Bundle? {
+    get
+  }
+  public static var nibName: Swift.String {
+    get
+  }
+  public static var nib: UIKit.UINib {
+    get
+  }
+}
+extension NibLoadable where Self : UIKit.UIView {
+  public static func createFromNib(_ owner: Swift.AnyObject? = nil) -> Self
+}
+extension UIView {
+  public func getBundle() -> Foundation.Bundle?
+}
+public struct RewardType : Swift.Codable {
+  public static var items: [AdisonOfferwallSDK.RewardType]
+  public let id: Swift.Int
+  public let name: Swift.String
+  public let priority: Swift.Int
+  public let unit: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc public class UserInfo : ObjectiveC.NSObject {
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum Result<Value> {
+  case success(Value)
+  case failure(Swift.Error)
+}
+public protocol ErrorProtocol {
+  func onError(completion: (Swift.Error?) -> ())
+}
+public protocol SuccessProtocol {
+  func onSuccess(completion: (Swift.String?) -> ()) -> AdisonOfferwallSDK.ErrorProtocol?
+}
+public class AdisonApiClient {
+  public class func getAdList(from: Swift.String, onSuccess: @escaping (Foundation.URLResponse?, AdisonOfferwallSDK.AdList) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  public class func getAdDetail(adId: Swift.Int, from: Swift.String, onSuccess: @escaping (AdisonOfferwallSDK.Ad) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  public class func participate(adId: Swift.Int, onSuccess: @escaping (AdisonOfferwallSDK.ParticipateResult) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  public class func impression(ids: [Swift.Int], onSuccess: @escaping (Foundation.Data) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
+  @objc deinit
+}
+open class OfferwallListPresenter : AdisonOfferwallSDK.OfferwallListViewPresenter {
+  unowned final public let view: AdisonOfferwallSDK.OfferwallListView
+  open var ads: [AdisonOfferwallSDK.Ad]?
+  required public init(view: AdisonOfferwallSDK.OfferwallListView)
+  open var parepareShown: Swift.Bool
+  open var rewards: Swift.Int {
+    get
+  }
+  public var repository: AdisonOfferwallSDK.AdRepository {
+    get
+  }
+  public var cacheIsDirty: Swift.Bool {
+    get
+    set
+  }
+  open func reloadData(_ from: Swift.String)
+  public func requestUserInfo()
+  public func requestUserInfo2()
+  open func requestAdList(from: Swift.String, fromRewards: Swift.Int, completion: (() -> Swift.Void)? = nil)
+  public func backButtonClicked()
+  public func registUser()
+  public func showChooseProduct(animated: Swift.Bool = true)
+  public func moveToContact()
+  public func moveToMyPage()
+  public func moveToDetail(_ adId: Swift.Int)
+  @objc deinit
+}
+@objc public class AdisonError : ObjectiveC.NSObject, Swift.Error, Swift.Codable {
+  @objc public var code: Swift.Int
+  @objc public var message: Swift.String?
+  @objc override dynamic public init()
+  required public init(from decoder: Swift.Decoder) throws
+  @objc deinit
+  public func encode(to encoder: Swift.Encoder) throws
+}
+extension AdisonError : Foundation.LocalizedError {
+  @objc dynamic public var errorDescription: Swift.String? {
+    @objc get
+  }
+}
+extension AdisonError : Foundation.CustomNSError {
+  @objc public static var errorDomain: Swift.String {
+    @objc get
+  }
+  @objc dynamic public var errorCode: Swift.Int {
+    @objc get
+  }
+}
+@objc open class SharedWebviewViewController : AdisonOfferwallSDK.BaseViewController {
+  @objc override dynamic open func viewDidLoad()
+  @objc override dynamic open func viewWillAppear(_ animated: Swift.Bool)
+  @objc override dynamic open func viewWillDisappear(_ animated: Swift.Bool)
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension SharedWebviewViewController : UIKit.UIWebViewDelegate {
+  @objc dynamic open func webViewDidStartLoad(_ webView: UIKit.UIWebView)
+  @objc dynamic open func webViewDidFinishLoad(_ webView: UIKit.UIWebView)
+  @objc dynamic open func webView(_ webView: UIKit.UIWebView, didFailLoadWithError error: Swift.Error)
+}
+public struct ViewItemsInfo : Swift.Codable {
+  public let titleBar: Swift.String?
+  public let title: Swift.String?
+  public let subtitle: Swift.String?
+  public let image: Swift.String?
+  public let callToAction: Swift.String?
+  public let eventNotice: Swift.String?
+  public let eventNoticeImage: Swift.String?
+  public let noticeDetail: Swift.String?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc final public class UIDotLoadingIndicator : UIKit.UIView {
+  @objc @IBInspectable final public var dotsCount: Swift.Int {
+    @objc get
+    @objc set
+  }
+  @objc @IBInspectable final public var dotsRadius: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc @IBInspectable final public var dotsSpacing: CoreGraphics.CGFloat {
+    @objc get
+    @objc set
+  }
+  @objc override final public var tintColor: UIKit.UIColor! {
+    @objc get
+    @objc set
+  }
+  final public func startAnimating()
+  final public func stopAnimating()
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override final public func layoutSubviews()
+  @objc deinit
+}
+@objc open class Adison : ObjectiveC.NSObject {
+  @objc open var stage: AdisonOfferwallSDK.Stage
+  public var navigationBar: UIKit.UINavigationBar.Type? {
+    get
+    set
+  }
+  @objc public static let shared: AdisonOfferwallSDK.Adison
+  @objc open var delegate: AdisonOfferwallSDK.AdisonOfferwallDelegate? {
+    @objc get
+    @objc set
+  }
+  @objc open var loginDelegate: AdisonOfferwallSDK.LoginDelegate? {
+    @objc get
+    @objc set
+  }
+  @objc open var uid: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc open var isTutorialShown: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc open var config: AdisonOfferwallSDK.AdisonConfig {
+    @objc get
+    @objc set
+  }
+  @objc open var colorScheme: AdisonOfferwallSDK.AdisonColorScheme {
+    @objc get
+    @objc set
+  }
+  @objc(initializeWith:) open func initialize(appId: Swift.String)
+  @objc(presentOfferwall:adId:stacked:animated:completion:) open func presentOfferwall(from viewController: UIKit.UIViewController, adId: Foundation.NSNumber? = nil, stacked: Swift.Bool = true, animated: Swift.Bool = true, completion: (() -> Swift.Void)? = nil)
+  @objc(presentOfferwall:adId:animated:completion:) open func presentOfferwall(from viewController: UIKit.UIViewController, adId: Foundation.NSNumber? = nil, animated: Swift.Bool = true, completion: (() -> Swift.Void)? = nil)
+  @objc(dismissOfferwallAnimated:completion:) open func dismissOfferwall(animated: Swift.Bool = true, completion: ((Swift.Bool) -> ())? = nil)
+  @objc(setServer:) open func setServer(_ stage: AdisonOfferwallSDK.Stage)
+  @objc open var allowPoints: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc(isTester:) open func isTester(_ enable: Swift.Bool)
+  @objc open var gender: AdisonOfferwallSDK.Gender {
+    @objc get
+    @objc set
+  }
+  @objc open var birthYear: Swift.Int {
+    @objc get
+    @objc set
+  }
+  @objc(getCurrentReward:) open func getCurrentReward(completion: @escaping (Swift.Int) -> Swift.Void)
+  @objc(availableReward:) open func availableReward(completion: @escaping (Swift.String?, Swift.String?, Swift.Int) -> Swift.Void)
+  @objc(getServerTime) open func getServerTime() -> Swift.Double
+  public var isTestDevice: Swift.Bool {
+    get
+    set
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public enum Stage : Swift.Int {
+  case development
+  case staging
+  case production
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum Gender : Swift.Int {
+  case unknown
+  case male
+  case female
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public typealias ImageLoadCompletion = (UIKit.UIImage) -> Swift.Void
+extension UIImageView {
+  public func setImage(with url: Foundation.URL, completion: AdisonOfferwallSDK.ImageLoadCompletion? = nil)
+  public func parseToImage(data: Foundation.Data) -> UIKit.UIImage?
+}
+extension UIButton {
+  public func setImage(with url: Foundation.URL)
+}
+public protocol OfferwallListViewPresenter {
+  var repository: AdisonOfferwallSDK.AdRepository { get }
+  var ads: [AdisonOfferwallSDK.Ad]? { get set }
+  var rewards: Swift.Int { get }
+  var parepareShown: Swift.Bool { get set }
+  init(view: AdisonOfferwallSDK.OfferwallListView)
+  func backButtonClicked()
+  func moveToDetail(_ adId: Swift.Int)
+  func moveToContact()
+  func moveToMyPage()
+  func reloadData(_ from: Swift.String)
+  func registUser()
+  func requestUserInfo()
+  func requestUserInfo2()
+  func showChooseProduct(animated: Swift.Bool)
+}
+@objc final public class AJDotLoadingView : UIKit.UIView {
+  final public func startAnimating()
+  final public func stopAnimating()
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension AJDotLoadingView : AdisonOfferwallSDK.NibLoadable {
+}
+extension UIView {
+  public func aj_showDotLoadingIndicator()
+  public func aj_hideDotLoadingIndicator()
+}
+public typealias OfferwallListViewController = AdisonOfferwallSDK.BaseViewController & AdisonOfferwallSDK.OfferwallListView
+public typealias OfferwallDetailViewController = AdisonOfferwallSDK.BaseViewController & AdisonOfferwallSDK.OfferwallDetailView
+public typealias ContractViewController = AdisonOfferwallSDK.SharedWebviewViewController
+public typealias PrepareView = UIKit.UIView & AdisonOfferwallSDK.RewardDisplayable
+public protocol ViewControllerFactory {
+  func makeOfferwallListViewController() -> AdisonOfferwallSDK.OfferwallListViewController
+  func makeOfferwallDetailViewController(for adId: Swift.Int) -> AdisonOfferwallSDK.OfferwallDetailViewController
+  func makeContractViewController() -> AdisonOfferwallSDK.ContractViewController
+  func makePrepareView() -> UIKit.UIView
+}
+extension Int {
+  public static var random: Swift.Int {
+    get
+  }
+  public static func random(n: Swift.Int) -> Swift.Int
+  public static func random(min: Swift.Int, max: Swift.Int) -> Swift.Int
+}
+extension Double {
+  public static var random: Swift.Double {
+    get
+  }
+  public static func random(min: Swift.Double, max: Swift.Double) -> Swift.Double
+}
+extension Float {
+  public static var random: Swift.Float {
+    get
+  }
+  public static func random(min: Swift.Float, max: Swift.Float) -> Swift.Float
+}
+extension CGFloat {
+  public static var randomSign: CoreGraphics.CGFloat {
+    get
+  }
+  public static var random: CoreGraphics.CGFloat {
+    get
+  }
+  public static func random(min: CoreGraphics.CGFloat, max: CoreGraphics.CGFloat) -> CoreGraphics.CGFloat
+}
+open class OfferwallDetailPresenter : AdisonOfferwallSDK.OfferwallDetailViewPresenter {
+  public var view: AdisonOfferwallSDK.OfferwallDetailView?
+  public var adId: Swift.Int
+  required public init(view: AdisonOfferwallSDK.OfferwallDetailView, adId: Swift.Int)
+  public var currentAd: AdisonOfferwallSDK.Ad? {
+    get
+  }
+  public var repository: AdisonOfferwallSDK.AdRepository {
+    get
+  }
+  public func sendParticipate()
+  public func backButtonClicked()
+  public func requestUserInfo2()
+  public func registUser()
+  @objc deinit
+}
+public protocol OfferwallDetailView : AnyObject {
+  var navigationController: UIKit.UINavigationController? { get }
+  var presenter: AdisonOfferwallSDK.OfferwallDetailViewPresenter! { get set }
+  var currentAd: AdisonOfferwallSDK.Ad? { get set }
+  func reloadData(from: Swift.String, _ force: Swift.Bool)
+  func showAlert(message: Swift.String)
+  func showNetworkError(retry: Swift.Bool)
+}
+public struct Purchase : Swift.Codable {
+  public let thumbnailUrl: Swift.String?
+  public let companyName: Swift.String?
+  public let productName: Swift.String?
+  public let points: Swift.Int?
+  public let createdAt: Swift.String?
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public protocol OfferwallDetailViewPresenter {
+  var view: AdisonOfferwallSDK.OfferwallDetailView? { get set }
+  var adId: Swift.Int { get set }
+  var currentAd: AdisonOfferwallSDK.Ad? { get }
+  var repository: AdisonOfferwallSDK.AdRepository { get }
+  init(view: AdisonOfferwallSDK.OfferwallDetailView, adId: Swift.Int)
+  func backButtonClicked()
+  func sendParticipate()
+  func registUser()
+  func requestUserInfo2()
+}
+@objc open class BaseViewController : UIKit.UIViewController {
+  open var customNavigationController: AdisonOfferwallSDK.NavigationController? {
+    get
+  }
+  public func getBundle() -> Foundation.Bundle?
+  public func showAlert(message: Swift.String)
+  public func showDetilaAlert(message: Swift.String)
+  required convenience public init(nibName nibNameOrNil: Swift.String?)
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public struct ProductInfo : Swift.Codable {
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc public protocol AdisonOfferwallDelegate : AnyObject {
+  @objc(requestLogin) func requestLogin()
+  @objc(participateFailure:) func participateFailure(_ error: AdisonOfferwallSDK.AdisonError)
+  @objc(error:) func error(_ error: Swift.Error)
+}
+@objc open class AdisonNavigationBar : UIKit.UINavigationBar {
+  @objc @IBOutlet weak open var contentView: UIKit.UIView!
+  @objc @IBOutlet weak open var titleLabel: UIKit.UILabel!
+  @objc @IBOutlet weak open var backBarButton: UIKit.UIButton!
+  @objc @IBOutlet weak open var closeButton: UIKit.UIButton?
+  @objc @IBOutlet weak open var contractButton: UIKit.UIButton!
+  @objc @IBOutlet weak open var rightBarButton: UIKit.UIButton!
+  public var title: Swift.String? {
+    get
+    set
+  }
+  @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
+  @objc override dynamic public init(frame: CoreGraphics.CGRect)
+  open func commonInit()
+  @objc override dynamic open func layoutSubviews()
+  open func setTitle(title: Swift.String)
+  open func setTitleColor(color: UIKit.UIColor)
+  open func setBackButtonImage(image: UIKit.UIImage?)
+  @objc deinit
+}
+public protocol ItemBase {
+  var title: Swift.String { get }
+  var subtitle: Swift.String? { get }
+  var attributedTitle: Foundation.NSAttributedString { get }
+  var attributedSubtitle: Foundation.NSAttributedString { get }
+  var reward: Swift.Int { get }
+  var rewardName: Swift.String { get }
+  var thumbImage: Swift.String { get }
+  func isCompleted() -> Swift.Bool
+  func isVisible() -> Swift.Bool
+}
+public struct Ad : AdisonOfferwallSDK.ItemBase {
+  public var id: Swift.Int
+  public var campaignId: Swift.Int
+  public var title: Swift.String
+  public var subtitle: Swift.String?
+  public var reward: Swift.Int
+  public var thumbImage: Swift.String
+  public var priority: Swift.Float
+  public var completed: Swift.Int?
+  public var adTypeCode: Swift.String?
+  public var deeplink: Swift.String?
+  public var showStatus: Swift.Int
+  public var newBadge: Swift.Int
+  public var viewItemsInfo: AdisonOfferwallSDK.ViewItemsInfo?
+  public var filter: AdisonOfferwallSDK.FiltersInfo?
+  public var rewardTypeId: Swift.Int
+  public var nextParticipateStr: Swift.String?
+  public var rewardTypes: [AdisonOfferwallSDK.RewardType]?
+  public var nextParticipateAt: Swift.Double {
+    get
+    set(value)
+  }
+  public var adStatus: AdisonOfferwallSDK.AdStatus {
+    get
+    set(value)
+  }
+  public var adStatusValue: Swift.Int
+  public var attributedTitle: Foundation.NSAttributedString {
+    get
+  }
+  public var attributedSubtitle: Foundation.NSAttributedString {
+    get
+  }
+  public var attributedDetailTitle: Foundation.NSAttributedString {
+    get
+  }
+  public var attributedDetailSubtitle: Foundation.NSAttributedString {
+    get
+  }
+  public var attributedDetailCondition: Foundation.NSAttributedString {
+    get
+  }
+  public var attributedCallToAction: Foundation.NSAttributedString {
+    get
+  }
+  public var attributedDesc: Foundation.NSAttributedString {
+    get
+  }
+  public func isVisible() -> Swift.Bool
+  public func isCompleted() -> Swift.Bool
+  public func getAccumulableReward() -> Swift.Int
+  public func getRewardStr() -> Swift.String
+  public func isNew() -> Swift.Bool
+  public var rewardType: AdisonOfferwallSDK.RewardType {
+    get
+  }
+  public var rewardUnit: Swift.String {
+    get
+  }
+  public var rewardName: Swift.String {
+    get
+  }
+}
+extension Ad : Swift.Encodable {
+  public func encode(to encoder: Swift.Encoder) throws
+}
+extension Ad : Swift.Decodable {
+  public init(from decoder: Swift.Decoder) throws
+}
+public enum ShowStatus : Swift.Int {
+  case testOnly
+  case normal
+  case completedOnly
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum AdStatus : Swift.Int {
+  case none
+  case normal
+  case exceedTimeCap
+  case end
+  public typealias RawValue = Swift.Int
+  public init?(rawValue: Swift.Int)
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class DefaultOfferwallDetailViewController : AdisonOfferwallSDK.BaseViewController, AdisonOfferwallSDK.OfferwallDetailView {
+  public var presenter: AdisonOfferwallSDK.OfferwallDetailViewPresenter!
+  public var currentAd: AdisonOfferwallSDK.Ad?
+  public var adId: Swift.Int!
+  @objc override dynamic public func viewDidLoad()
+  @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
+  @objc override dynamic public func viewWillDisappear(_ animated: Swift.Bool)
+  public func reloadData(from: Swift.String, _ force: Swift.Bool = false)
+  public func showNetworkError(retry: Swift.Bool)
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+extension DefaultOfferwallDetailViewController : AdisonOfferwallSDK.LoginDelegate {
+  @objc dynamic public func success()
+}
+extension DefaultOfferwallDetailViewController {
+  @objc @IBAction dynamic public func close()
+  @objc @IBAction dynamic public func paricipate()
+}
+public struct ProductList : Swift.Codable {
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc open class AdisonConfig : ObjectiveC.NSObject {
+  @objc public var offerwallListTitle: Swift.String
+  @objc public var infoBarHidden: Swift.Bool
+  @objc public var prepareViewHidden: Swift.Bool
+  public var useCustomDialog: Swift.Bool
+  public static var offerwallListViewControllerClazz: AdisonOfferwallSDK.OfferwallListViewController.Type
+  public static var offerwallListViewControllerNibName: Swift.String?
+  public static var offerwallListViewPresenterClazz: AdisonOfferwallSDK.OfferwallListViewPresenter.Type
+  public static var offerwallDetailViewControllerClazz: AdisonOfferwallSDK.OfferwallDetailViewController.Type
+  public static var offerwallDetailViewControllerNibName: Swift.String?
+  public static var offerwallDetailViewPresenterClazz: AdisonOfferwallSDK.OfferwallDetailViewPresenter.Type
+  public static var contractViewControllerClazz: AdisonOfferwallSDK.ContractViewController.Type
+  @objc public var prepareViewClass: UIKit.UIView.Type
+  @objc public var oldStatusBarStyleEnabled: Swift.Bool
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct UserResult : Swift.Codable {
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public struct FiltersInfo : Swift.Codable {
+  public func encode(to encoder: Swift.Encoder) throws
+  public init(from decoder: Swift.Decoder) throws
+}
+public class AdRepository {
+  public var cacheIsDirty: Swift.Bool {
+    get
+    set
+  }
+  @objc deinit
+}
+public struct PurchaseList : Swift.Codable {
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc open class AdisonColorScheme : ObjectiveC.NSObject {
+  @objc public var primaryColor: UIKit.UIColor
+  @objc public var primaryColorVariant: UIKit.UIColor
+  @objc public var secondaryColor: UIKit.UIColor
+  @objc public var secondaryColorVariant: UIKit.UIColor
+  @objc public var onPrimaryColor: UIKit.UIColor
+  @objc public var onSecondaryColor: UIKit.UIColor
+  @objc public var navigationBarTintColor: UIKit.UIColor
+  @objc public var navigationTintColor: UIKit.UIColor
+  @objc public var backgroundColor: UIKit.UIColor
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol OfferwallListView : AnyObject {
+  var navigationController: UIKit.UINavigationController? { get }
+  var presenter: AdisonOfferwallSDK.OfferwallListViewPresenter! { get set }
+  func showLoadingIndicator()
+  func hideLoadingIndicator()
+  func showNetworkError(retry: Swift.Bool)
+  func hideNetworkError()
+  func loadOfferwallAds(ads: [AdisonOfferwallSDK.Ad])
+  func showPrepareView()
+  func showAccumulableRewards()
+  func beforeAction(completion: @escaping (Swift.Int) -> Swift.Void)
+  func updateUserView(user: AdisonOfferwallSDK.User?)
+}
+@objc public class UserProfile : ObjectiveC.NSObject {
+  public static var uid: Swift.String?
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct AdList : Swift.Codable {
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+extension Int {
+  public func withCommas() -> Swift.String
+}
+public struct User : Swift.Codable {
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc public protocol LoginDelegate : AnyObject {
+  @objc func success()
+}
+extension AdisonOfferwallSDK.SharedWebviewViewController : JavaScriptCore.JSExport {}
+extension AdisonOfferwallSDK.Stage : Swift.Equatable {}
+extension AdisonOfferwallSDK.Stage : Swift.Hashable {}
+extension AdisonOfferwallSDK.Stage : Swift.RawRepresentable {}
+extension AdisonOfferwallSDK.Gender : Swift.Equatable {}
+extension AdisonOfferwallSDK.Gender : Swift.Hashable {}
+extension AdisonOfferwallSDK.Gender : Swift.RawRepresentable {}
+extension AdisonOfferwallSDK.ShowStatus : Swift.Equatable {}
+extension AdisonOfferwallSDK.ShowStatus : Swift.Hashable {}
+extension AdisonOfferwallSDK.ShowStatus : Swift.RawRepresentable {}
+extension AdisonOfferwallSDK.AdStatus : Swift.Hashable {}
+extension AdisonOfferwallSDK.AdStatus : Swift.RawRepresentable {}

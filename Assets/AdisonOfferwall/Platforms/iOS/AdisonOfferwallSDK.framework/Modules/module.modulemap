@@ -1,0 +1,11 @@
+framework module AdisonOfferwallSDK {
+  umbrella header "AdisonOfferwallSDK.h"
+
+  export *
+  module * { export * }
+}
+
+module AdisonOfferwallSDK.Swift {
+    header "AdisonOfferwallSDK-Swift.h"
+    requires objc
+}
