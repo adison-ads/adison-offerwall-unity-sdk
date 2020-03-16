@@ -1,6 +1,5 @@
 fileFormatVersion: 2
-guid: 80b806951c61d44db921e6051139e171
-folderAsset: yes
+guid: 4b762772a78a7428498e1cd4a615f526
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
@@ -76,6 +75,11 @@ PluginImporter:
         CPU: AnyCPU
         CompileFlags: 
         FrameworkDependencies: 
+  - first:
+      tvOS: tvOS
+    second:
+      enabled: 1
+      settings: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
