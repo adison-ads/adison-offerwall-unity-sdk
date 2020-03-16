@@ -6,7 +6,7 @@ using AdisonOfferwall.Api;
 
 namespace AdisonOfferwall.Android
 {
-    public class OfferwallClient : IOfferwallClient
+    public class OfferwallClient
     {
         static AndroidJavaClass _pluginClass;
 
