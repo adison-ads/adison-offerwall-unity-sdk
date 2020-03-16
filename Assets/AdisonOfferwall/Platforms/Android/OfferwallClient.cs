@@ -6,6 +6,7 @@ using AdisonOfferwall.Api;
 
 namespace AdisonOfferwall.Android
 {
+#if UNITY_ANDROID
     public class OfferwallClient
     {
         static AndroidJavaClass _pluginClass;
@@ -115,7 +116,7 @@ namespace AdisonOfferwall.Android
             }
         }
 
-        #region Callbacks from RequestLoginListener.
+#region Callbacks from RequestLoginListener.
 
         public static void onLoginRequested()
         {
@@ -125,8 +126,9 @@ namespace AdisonOfferwall.Android
             }
         }
 
-        #endregion
+#endregion
     }
+#endif
 }
 
 

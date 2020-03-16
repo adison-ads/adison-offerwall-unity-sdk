@@ -73,3 +73,68 @@ void __showOfferwall() {
     UIViewController* viewController = UnityGetGLViewController();
     [[Adison shared] presentOfferwall:viewController adId:nil animated:NO completion:nil];
 }
+
+void __setConfig(AdisonConfig *config) {
+    [[Adison shared] setConfig:config];
+}
+
+CFTypeRef __createOfferwallConfig() {
+    return CFBridgingRetain([[AdisonConfig alloc] init]);
+}
+
+void __setOfferwallListTitle(AdisonConfig *config, const char *title) {
+    if (config != NULL) {
+        config.offerwallListTitle = GADUStringFromUTF8String(title);
+    }
+}
+
+void __isPrepareViewHidden(AdisonConfig *config, bool hidden) {
+    if (config != NULL) {
+        config.prepareViewHidden = hidden;
+    }
+}
+
+void __setColorScheme(AdisonColorScheme *colorScheme) {
+    [[Adison shared] setColorScheme:colorScheme];
+}
+
+CFTypeRef __createAdisonOfwColorScheme() {
+    return CFBridgingRetain([[AdisonColorScheme alloc] init]);
+}
+
+void __setPrimaryColor(AdisonColorScheme *colorScheme, const char *hexString) {
+    if (colorScheme != NULL) {
+        unsigned rgbValue = 0;
+        NSScanner *scanner = [NSScanner scannerWithString:GADUStringFromUTF8String(hexString)];
+        [scanner setScanLocation:1]; // bypass '#' character
+        [scanner scanHexInt:&rgbValue];
+        colorScheme.primaryColor = [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+    }
+}
+
+void __setPrimaryColorVariant(AdisonColorScheme *colorScheme, const char *hexString) {
+    if (colorScheme != NULL) {
+        unsigned rgbValue = 0;
+        NSScanner *scanner = [NSScanner scannerWithString:GADUStringFromUTF8String(hexString)];
+        [scanner setScanLocation:1]; // bypass '#' character
+        [scanner scanHexInt:&rgbValue];
+        colorScheme.primaryColorVariant = [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+    }
+}
+
+void __setOnPrimaryColor(AdisonColorScheme *colorScheme, const char *hexString) {
+    if (colorScheme != NULL) {
+        unsigned rgbValue = 0;
+        NSScanner *scanner = [NSScanner scannerWithString:GADUStringFromUTF8String(hexString)];
+        [scanner setScanLocation:1]; // bypass '#' character
+        [scanner scanHexInt:&rgbValue];
+        colorScheme.onPrimaryColor = [UIColor colorWithRed:((rgbValue & 0xFF0000) >> 16)/255.0 green:((rgbValue & 0xFF00) >> 8)/255.0 blue:(rgbValue & 0xFF)/255.0 alpha:1.0];
+    }
+}
+
+
+
+//void _destroyOfferwallConfig(CFTypeRef config)
+//{
+//    CFRelease(config);
+//}

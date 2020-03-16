@@ -8,7 +8,8 @@ using AdisonOfferwall.Api;
 
 namespace AdisonOfferwall.iOS
 {
-	public class AdisonOfferwallClient
+#if UNITY_IOS
+	public class OfferwallClient
 	{
 		[DllImport("__Internal")]
 		private static extern void __initialize(string appKey);
@@ -30,6 +31,12 @@ namespace AdisonOfferwall.iOS
 
 		[DllImport("__Internal")]
 		private static extern void __setGender(int gender);
+
+		[DllImport("__Internal")]
+		private static extern void __setConfig(IntPtr config);
+
+		[DllImport("__Internal")]
+		private static extern void __setColorScheme(IntPtr colorScheme);
 
 		[DllImport("__Internal")]
 		private static extern void __showOfferwall();
@@ -92,6 +99,16 @@ namespace AdisonOfferwall.iOS
 			}
 		}
 
+		public static void setConfig(OfferwallConfig config)
+        {
+            __setConfig(config.nativeObject);
+        }
+
+		public static void setColorScheme(AdisonOfwColorScheme colorScheme)
+		{
+			__setColorScheme(colorScheme.nativeObject);
+		}
+
 		public static void showOfferwall()
 		{
 			__showOfferwall();
@@ -104,4 +121,5 @@ namespace AdisonOfferwall.iOS
 		}
 
 	}
+#endif
 }

@@ -12,8 +12,7 @@ public class SampleBehaviour : MonoBehaviour
     void Start()
     {
         Debug.Log("start");
-        Adison.initialize("UQfbKPb7hAjWirWZVnzVfGdE");
-        //Adison.initialize("PJbqHq7dY9N5mJ1EyT9c6mQ3");
+        Adison.initialize("PJbqHq7dY9N5mJ1EyT9c6mQ3");
         Adison.setServer(Environment.Development);
         Adison.setDebugEnabled(true);
         Adison.setUid(null);
@@ -21,17 +20,16 @@ public class SampleBehaviour : MonoBehaviour
         Adison.setBirthYear(1983);
         Adison.setGender(Gender.Male);
 
-        //OfferwallClient.OnLoginRequested =
-
         OfferwallConfig config = new OfferwallConfig();
-        config.offerwallListTitle = "122323";
+        config.offerwallListTitle = "테스트 오퍼월";
         config.prepareViewHidden = true;
-
-        //AndroidJavaObject config = new AndroidJavaObject("co.adison.offerwall.AdisonConfig");
-        //config.Set("offerwallListTitle", "123");
-        //config.Set("prepareViewHidden", true);
-
         Adison.setConfig(config);
+
+        AdisonOfwColorScheme colorScheme = new AdisonOfwColorScheme();
+        colorScheme.primaryColor = "#9f83cb";
+        colorScheme.primaryColorVariant = "#9f83cb";
+        colorScheme.onPrimaryColor = "#ffffff";
+        Adison.setColorScheme(colorScheme);
     }
 
     // Update is called once per frame
