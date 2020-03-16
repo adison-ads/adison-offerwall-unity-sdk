@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using AdisonOfferwall.Api;
+
 namespace AdisonOfferwallPlugin
 {
 	public class Adison
@@ -103,6 +105,7 @@ namespace AdisonOfferwallPlugin
 
 			return "unknown";
 		}
+
 
 
 #elif UNITY_ANDROID
@@ -218,6 +221,8 @@ namespace AdisonOfferwallPlugin
 			}
 			return "unknown";
 		}
+       
+
 #endif
 	}
 

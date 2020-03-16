@@ -2,140 +2,128 @@
 using UnityEngine;
 
 using AdisonOfferwall.Api;
-using AdisonOfferwall.Common;
+//using AdisonOfferwall.Common;
 
 namespace AdisonOfferwall.Android
 {
-    public class OfferwallClient : AndroidJavaProxy, IOfferwallClient
+    public class OfferwallClient : IOfferwallClient
     {
-        private AndroidJavaObject interstitial;
+        static AndroidJavaClass _pluginClass;
 
-        public OfferwallClient() : base(Utils.UnityAdListenerClassName)
+        public static AndroidJavaClass PluginClass
         {
-            AndroidJavaClass playerClass = new AndroidJavaClass(Utils.UnityActivityClassName);
-            AndroidJavaObject activity =
-                    playerClass.GetStatic<AndroidJavaObject>("currentActivity");
-            this.interstitial = new AndroidJavaObject(
-                Utils.InterstitialClassName, activity, this);
-        }
-
-        public event EventHandler<EventArgs> OnAdLoaded;
-
-        public event EventHandler<AdFailedToLoadEventArgs> OnAdFailedToLoad;
-
-        public event EventHandler<EventArgs> OnAdOpening;
-
-        public event EventHandler<EventArgs> OnAdClosed;
-
-        public event EventHandler<EventArgs> OnAdLeavingApplication;
-
-        public event EventHandler<AdValueEventArgs> OnPaidEvent;
-
-        #region IGoogleMobileAdsInterstitialClient implementation
-
-        // Creates an interstitial ad.
-        public void CreateInterstitialAd(string adUnitId)
-        {
-            this.interstitial.Call("create", adUnitId);
-        }
-
-        // Loads an ad.
-        public void LoadAd(AdRequest request)
-        {
-            this.interstitial.Call("loadAd", Utils.GetAdRequestJavaObject(request));
-        }
-
-        // Checks if interstitial has loaded.
-        public bool IsLoaded()
-        {
-            return this.interstitial.Call<bool>("isLoaded");
-        }
-
-        // Presents the interstitial ad on the screen.
-        public void ShowInterstitial()
-        {
-            this.interstitial.Call("show");
-        }
-
-        // Destroys the interstitial ad.
-        public void DestroyInterstitial()
-        {
-            this.interstitial.Call("destroy");
-        }
-
-        // Returns the mediation adapter class name.
-        public string MediationAdapterClassName()
-        {
-            return this.interstitial.Call<string>("getMediationAdapterClassName");
-        }
-
-        #endregion
-
-        #region Callbacks from UnityInterstitialAdListener.
-
-        public void onAdLoaded()
-        {
-            if (this.OnAdLoaded != null)
+            get
             {
-                this.OnAdLoaded(this, EventArgs.Empty);
-            }
-        }
-
-        public void onAdFailedToLoad(string errorReason)
-        {
-            if (this.OnAdFailedToLoad != null)
-            {
-                AdFailedToLoadEventArgs args = new AdFailedToLoadEventArgs()
+                if (_pluginClass == null)
                 {
-                    Message = errorReason
-                };
-                this.OnAdFailedToLoad(this, args);
+                    _pluginClass = new AndroidJavaClass(Utils.OfferwallClassName);
+                }
+                return _pluginClass;
             }
         }
 
-        public void onAdOpened()
+        public static event EventHandler<EventArgs> OnLoginRequested;
+
+        public static AndroidJavaObject getContext()
         {
-            if (this.OnAdOpening != null)
-            {
-                this.OnAdOpening(this, EventArgs.Empty);
-            }
+            AndroidJavaClass playerClass = new AndroidJavaClass(Utils.UnityActivityClassName);            
+            return playerClass.GetStatic<AndroidJavaObject>("currentActivity");
         }
 
-        public void onAdClosed()
+        public static void initialize(string appKey)
         {
-            if (this.OnAdClosed != null)
-            {
-                this.OnAdClosed(this, EventArgs.Empty);
-            }
+            PluginClass.CallStatic("initialize", new object[2] { getContext(), appKey });
+            //setOnLoginRequested(new OnLoginRequestedListener());         
         }
 
-        public void onAdLeftApplication()
+        public static void setDebugEnabled(bool enable)
         {
-            if (this.OnAdLeavingApplication != null)
-            {
-                this.OnAdLeavingApplication(this, EventArgs.Empty);
-            }
+            PluginClass.CallStatic("setDebugEnabled", enable);
         }
 
-        public void onPaidEvent(int precision, long valueInMicros, string currencyCode)
+        public static void setUid(string uid)
         {
-            if (this.OnPaidEvent != null)
-            {
-                AdValue adValue = new AdValue()
-                {
-                    Precision = (AdValue.PrecisionType)precision,
-                    Value = valueInMicros,
-                    CurrencyCode = currencyCode
-                };
-                AdValueEventArgs args = new AdValueEventArgs()
-                {
-                    AdValue = adValue
-                };
+            PluginClass.CallStatic("setUid", uid);
+        }
 
-                this.OnPaidEvent(this, args);
+        public static void setIsTester(bool enable)
+        {
+            PluginClass.CallStatic("setIsTester", enable);
+        }
+
+        public static void setServer(Api.Environment environment)
+        {
+            AndroidJavaClass enumClass = new AndroidJavaClass("co.adison.offerwall.Server");
+            if (environment == Api.Environment.Development)
+            {
+                PluginClass.CallStatic("setServer", new object[1] { enumClass.GetStatic<AndroidJavaObject>("Development") });
+            }
+            else if (environment == Api.Environment.Staging)
+            {
+                PluginClass.CallStatic("setServer", new object[1] { enumClass.GetStatic<AndroidJavaObject>("Staging") });
+            }
+            else if (environment == Api.Environment.Production)
+            {
+                PluginClass.CallStatic("setServer", new object[1] { enumClass.GetStatic<AndroidJavaObject>("Production") });
             }
         }
 
+        public static void setBirthYear(int birthYear)
+        {
+            PluginClass.CallStatic("setBirthYear", birthYear);
+        }
+
+        public static void setGender(Gender gender)
+        {
+            AndroidJavaClass enumClass = new AndroidJavaClass("co.adison.offerwall.Gender");
+            if (gender == Gender.Unknown)
+            {
+                PluginClass.CallStatic("setGender", new object[1] { enumClass.GetStatic<AndroidJavaObject>("UNKNOWN") });
+            }
+            else if (gender == Gender.Male)
+            {
+                PluginClass.CallStatic("setGender", new object[1] { enumClass.GetStatic<AndroidJavaObject>("MALE") });
+            }
+            else if (gender == Gender.Female)
+            {
+                PluginClass.CallStatic("setGender", new object[1] { enumClass.GetStatic<AndroidJavaObject>("FEMALE") });
+            }
+        }
+
+        public static void showOfferwall()
+        {
+            PluginClass.CallStatic("showOfferwall");
+        }
+
+        public static void setOnLoginRequested(OnLoginRequestedListener listener)
+        {
+            PluginClass.CallStatic("setOfferwallListener", listener);
+        }
+
+        public static void setConfig(OfferwallConfig config)
+        {
+            PluginClass.CallStatic("setConfig", config.javaObject);
+        }
+
+        public class OnLoginRequestedListener : AndroidJavaProxy
+        {
+            public OnLoginRequestedListener() : base(Utils.RequestLoginListenerClassName) { }
+            void requestLogin(AndroidJavaObject context)
+            {
+                Debug.Log("login request");
+                onLoginRequested();
+            }
+        }
+
+        #region Callbacks from RequestLoginListener.
+
+        public static void onLoginRequested()
+        {
+            if (OnLoginRequested != null)
+            {
+                OnLoginRequested(PluginClass, EventArgs.Empty);
+            }
+        }
 
         #endregion
     }

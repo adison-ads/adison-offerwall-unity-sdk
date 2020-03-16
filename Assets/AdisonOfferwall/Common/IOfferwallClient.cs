@@ -3,12 +3,12 @@
 using AdisonOfferwall;
 using AdisonOfferwall.Api;
 
-public interface IAdisonOfferwallClient
+public interface IOfferwallClient
 {
     //// Ad event fired when the reward based video ad has been received.
     //event EventHandler<EventArgs> OnAdLoaded;
     //// Ad event fired when the reward based video ad has failed to load.
-    event EventHandler<LoginRequestedEventArgs> OnLoginRequested;
+    //event EventHandler<EventArgs> OnLoginRequested;
     //// Ad event fired when the reward based video ad is opened.
     //event EventHandler<EventArgs> OnAdOpening;
     //// Ad event fired when the reward based video ad has started playing.
