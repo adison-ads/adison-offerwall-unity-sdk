@@ -5,6 +5,7 @@ using UnityEngine;
 
 using AdisonOfferwall;
 using AdisonOfferwall.Api;
+using AdisonOfferwall.Common;
 
 public class SampleBehaviour : MonoBehaviour
 {
@@ -12,24 +13,24 @@ public class SampleBehaviour : MonoBehaviour
     void Start()
     {
         Debug.Log("start");
-        Adison.initialize("PJbqHq7dY9N5mJ1EyT9c6mQ3");
-        Adison.setServer(Environment.Development);
-        Adison.setDebugEnabled(true);
-        Adison.setUid(null);
-        Adison.setIsTester(true);
-        Adison.setBirthYear(1983);
-        Adison.setGender(Gender.Male);
+        Adison.Initialize("PJbqHq7dY9N5mJ1EyT9c6mQ3");
+        Adison.SetEnvironment(Environment.Development);
+        Adison.SetDebugEnabled(true);
+        Adison.SetUid(null);
+        Adison.SetIsTester(true);
+        Adison.SetBirthYear(1983);
+        Adison.SetGender(Gender.Male);
 
-        OfferwallConfig config = new OfferwallConfig();
-        config.offerwallListTitle = "테스트 오퍼월";
-        config.prepareViewHidden = true;
-        Adison.setConfig(config);
+        AdisonConfig config = new AdisonConfig();
+        config.OfferwallListTitle = "테스트 오퍼월";
+        config.PrepareViewHidden = true;
+        Adison.SetConfig(config);
 
-        AdisonOfwColorScheme colorScheme = new AdisonOfwColorScheme();
-        colorScheme.primaryColor = "#9f83cb";
-        colorScheme.primaryColorVariant = "#9f83cb";
-        colorScheme.onPrimaryColor = "#ffffff";
-        Adison.setColorScheme(colorScheme);
+        AdisonColorScheme colorScheme = new AdisonColorScheme();
+        colorScheme.PrimaryColor = "#9f83cb";
+        colorScheme.PrimaryColorVariant = "#9f83cb";
+        colorScheme.OnPrimaryColor = "#ffffff";
+        Adison.SetColorScheme(colorScheme);
     }
 
     // Update is called once per frame
@@ -39,6 +40,6 @@ public class SampleBehaviour : MonoBehaviour
 
     public void OnClick()
     {
-        Adison.showOfferwall();
+        Adison.ShowOfferwall();
     }
 }

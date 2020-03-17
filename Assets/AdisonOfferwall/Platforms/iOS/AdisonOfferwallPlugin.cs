@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using AdisonOfferwall.Api;
+using AdisonOfferwall.Common;
 
 namespace AdisonOfferwall.iOS
 {
 #if UNITY_IOS
-	public class OfferwallClient
+	public class AdisonOfferwallPlugin
 	{
 		[DllImport("__Internal")]
 		private static extern void __initialize(string appKey);
@@ -42,27 +43,27 @@ namespace AdisonOfferwall.iOS
 		private static extern void __showOfferwall();
 
 
-		public static void initialize(string appKey)
+		public static void Initialize(string appKey)
 		{
 			__initialize(appKey);
 		}
 
-		public static void setDebugEnabled(bool enable)
+		public static void SetDebugEnabled(bool enable)
 		{
 			__setDebugEnabled(enable);
 		}
 
-		public static void setUid(string uid)
+		public static void SetUid(string uid)
 		{
 			__setUid(uid);
 		}
 
-		public static void setIsTester(bool enable)
+		public static void SetIsTester(bool enable)
 		{
 			__setIsTester(enable);
 		}
 
-		public static void setServer(Api.Environment env)
+		public static void SetEnvironment(Api.Environment env)
 		{
 			if (env == Api.Environment.Development)
 			{
@@ -78,12 +79,12 @@ namespace AdisonOfferwall.iOS
 			}
 		}
 
-		public static void setBirthYear(int birthYear)
+		public static void SetBirthYear(int birthYear)
 		{
 			__setBirthYear(birthYear);
 		}
 
-		public static void setGender(Gender gender)
+		public static void SetGender(Gender gender)
 		{
 			if (gender == Gender.Unknown)
 			{
@@ -99,22 +100,22 @@ namespace AdisonOfferwall.iOS
 			}
 		}
 
-		public static void setConfig(OfferwallConfig config)
+		public static void SetConfig(AdisonConfig config)
         {
             __setConfig(config.nativeObject);
         }
 
-		public static void setColorScheme(AdisonOfwColorScheme colorScheme)
+		public static void SetColorScheme(AdisonColorScheme colorScheme)
 		{
 			__setColorScheme(colorScheme.nativeObject);
 		}
 
-		public static void showOfferwall()
+		public static void ShowOfferwall()
 		{
 			__showOfferwall();
 		}
 
-		public static string getSdkVersion()
+		public static string GetSdkVersion()
 		{
 
 			return "unknown";

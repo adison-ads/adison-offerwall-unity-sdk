@@ -78,7 +78,7 @@ void __setConfig(AdisonConfig *config) {
     [[Adison shared] setConfig:config];
 }
 
-CFTypeRef __createOfferwallConfig() {
+CFTypeRef __createAdisonConfig() {
     return CFBridgingRetain([[AdisonConfig alloc] init]);
 }
 
@@ -98,7 +98,7 @@ void __setColorScheme(AdisonColorScheme *colorScheme) {
     [[Adison shared] setColorScheme:colorScheme];
 }
 
-CFTypeRef __createAdisonOfwColorScheme() {
+CFTypeRef __createAdisonColorScheme() {
     return CFBridgingRetain([[AdisonColorScheme alloc] init]);
 }
 

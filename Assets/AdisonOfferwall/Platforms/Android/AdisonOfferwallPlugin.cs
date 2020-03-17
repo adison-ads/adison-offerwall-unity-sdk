@@ -2,12 +2,12 @@
 using UnityEngine;
 
 using AdisonOfferwall.Api;
-//using AdisonOfferwall.Common;
+using AdisonOfferwall.Common;
 
 namespace AdisonOfferwall.Android
 {
 #if UNITY_ANDROID
-    public class OfferwallClient
+    public class AdisonOfferwallPlugin
     {
         static AndroidJavaClass _pluginClass;
 
@@ -31,28 +31,28 @@ namespace AdisonOfferwall.Android
             return playerClass.GetStatic<AndroidJavaObject>("currentActivity");
         }
 
-        public static void initialize(string appKey)
+        public static void Initialize(string appKey)
         {
             PluginClass.CallStatic("initialize", new object[2] { getContext(), appKey });
             //setOnLoginRequested(new OnLoginRequestedListener());         
         }
 
-        public static void setDebugEnabled(bool enable)
+        public static void SetDebugEnabled(bool enable)
         {
             PluginClass.CallStatic("setDebugEnabled", enable);
         }
 
-        public static void setUid(string uid)
+        public static void SetUid(string uid)
         {
             PluginClass.CallStatic("setUid", uid);
         }
 
-        public static void setIsTester(bool enable)
+        public static void SetIsTester(bool enable)
         {
             PluginClass.CallStatic("setIsTester", enable);
         }
 
-        public static void setServer(Api.Environment environment)
+        public static void SetEnvironment(Api.Environment environment)
         {
             AndroidJavaClass enumClass = new AndroidJavaClass("co.adison.offerwall.Server");
             if (environment == Api.Environment.Development)
@@ -69,12 +69,12 @@ namespace AdisonOfferwall.Android
             }
         }
 
-        public static void setBirthYear(int birthYear)
+        public static void SetBirthYear(int birthYear)
         {
             PluginClass.CallStatic("setBirthYear", birthYear);
         }
 
-        public static void setGender(Gender gender)
+        public static void SetGender(Gender gender)
         {
             AndroidJavaClass enumClass = new AndroidJavaClass("co.adison.offerwall.Gender");
             if (gender == Gender.Unknown)
@@ -91,19 +91,24 @@ namespace AdisonOfferwall.Android
             }
         }
 
-        public static void showOfferwall()
+        public static void ShowOfferwall()
         {
             PluginClass.CallStatic("showOfferwall");
         }
 
-        public static void setOnLoginRequested(OnLoginRequestedListener listener)
+        public static void SetOnLoginRequested(OnLoginRequestedListener listener)
         {
             PluginClass.CallStatic("setOfferwallListener", listener);
         }
 
-        public static void setConfig(OfferwallConfig config)
+        public static void SetConfig(AdisonConfig config)
         {
             PluginClass.CallStatic("setConfig", config.javaObject);
+        }
+
+        public static void SetColorScheme(AdisonColorScheme colorScheme)
+        {
+            //PluginClass.CallStatic("setColorScheme", colorScheme.javaObject);
         }
 
         public class OnLoginRequestedListener : AndroidJavaProxy
@@ -116,7 +121,7 @@ namespace AdisonOfferwall.Android
             }
         }
 
-#region Callbacks from RequestLoginListener.
+    #region Callbacks from RequestLoginListener.
 
         public static void onLoginRequested()
         {
@@ -126,7 +131,7 @@ namespace AdisonOfferwall.Android
             }
         }
 
-#endregion
+    #endregion
     }
 #endif
 }
