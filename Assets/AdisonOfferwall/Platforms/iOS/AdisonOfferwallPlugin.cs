@@ -6,6 +6,7 @@ using UnityEngine;
 
 using AdisonOfferwall.Api;
 using AdisonOfferwall.Common;
+using AOT;
 
 namespace AdisonOfferwall.iOS
 {
@@ -20,6 +21,9 @@ namespace AdisonOfferwall.iOS
 
 		[DllImport("__Internal")]
 		private static extern void __setUid(string uid);
+
+		[DllImport("__Internal")]
+		private static extern string __getUid();
 
 		[DllImport("__Internal")]
 		private static extern void __setIsTester(bool enable);
@@ -42,10 +46,21 @@ namespace AdisonOfferwall.iOS
 		[DllImport("__Internal")]
 		private static extern void __showOfferwall();
 
+		[DllImport("__Internal")]
+		private static extern void __setLifeCycleCallbacks(
+                OfferwallOpenCallback offerwallOpenCallback,
+			    OfferwallClosedCallback offerwallClosedCallback
+			);
+
+		public static OnLifeCycleListener LifeCycleListener;
+
 
 		public static void Initialize(string appKey)
 		{
 			__initialize(appKey);
+
+			LifeCycleListener = new OnLifeCycleListener();
+			__setLifeCycleCallbacks(OfferwallOpen, OfferwallClosed);
 		}
 
 		public static void SetDebugEnabled(bool enable)
@@ -56,6 +71,11 @@ namespace AdisonOfferwall.iOS
 		public static void SetUid(string uid)
 		{
 			__setUid(uid);
+		}
+
+		public static string GetUid()
+		{
+			return __getUid();
 		}
 
 		public static void SetIsTester(bool enable)
@@ -120,6 +140,36 @@ namespace AdisonOfferwall.iOS
 
 			return "unknown";
 		}
+
+		delegate void OfferwallOpenCallback();
+		[MonoPInvokeCallback(typeof(OfferwallOpenCallback))]
+		private static void OfferwallOpen()
+		{
+            LifeCycleListener.offerwallOpen();
+        }
+
+		delegate void OfferwallClosedCallback();
+        [MonoPInvokeCallback(typeof(OfferwallClosedCallback))]
+		private static void OfferwallClosed()
+		{
+            LifeCycleListener.offerwallClosed();
+        }
+
+		public class OnLifeCycleListener
+		{
+            public event EventHandler<EventArgs> OnOfferwallOpen;
+            public event EventHandler<EventArgs> OnOfferwallClosed;
+
+			public void offerwallOpen()
+            {
+				OnOfferwallOpen?.Invoke(this, EventArgs.Empty);
+            }
+
+			public void offerwallClosed()
+            {
+				OnOfferwallClosed?.Invoke(this, EventArgs.Empty);
+            }
+        }
 
 	}
 #endif

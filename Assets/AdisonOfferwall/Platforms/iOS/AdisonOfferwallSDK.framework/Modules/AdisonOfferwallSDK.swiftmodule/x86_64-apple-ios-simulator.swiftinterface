@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.1.2 (swiftlang-1100.0.278 clang-1100.0.33.9)
+// swift-compiler-version: Apple Swift version 5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)
 // swift-module-flags: -target x86_64-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name AdisonOfferwallSDK
 import AdSupport
 @_exported import AdisonOfferwallSDK
@@ -273,6 +273,10 @@ public struct ViewItemsInfo : Swift.Codable {
     @objc get
     @objc set
   }
+  @objc open var lifeCycleDelegate: AdisonOfferwallSDK.LifeCycleDelegate? {
+    @objc get
+    @objc set
+  }
   @objc open var loginDelegate: AdisonOfferwallSDK.LoginDelegate? {
     @objc get
     @objc set
@@ -416,6 +420,10 @@ extension CGFloat {
   }
   public static func random(min: CoreGraphics.CGFloat, max: CoreGraphics.CGFloat) -> CoreGraphics.CGFloat
 }
+@objc public protocol LifeCycleDelegate : AnyObject {
+  @objc(offerwallOpen) func offerwallOpen()
+  @objc(offerwallClosed) func offerwallClosed()
+}
 open class OfferwallDetailPresenter : AdisonOfferwallSDK.OfferwallDetailViewPresenter {
   public var view: AdisonOfferwallSDK.OfferwallDetailView?
   public var adId: Swift.Int
@@ -465,6 +473,7 @@ public protocol OfferwallDetailViewPresenter {
     get
   }
   public func getBundle() -> Foundation.Bundle?
+  @objc override dynamic public func viewDidLoad()
   public func showAlert(message: Swift.String)
   public func showDetilaAlert(message: Swift.String)
   required convenience public init(nibName nibNameOrNil: Swift.String?)

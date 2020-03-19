@@ -4,6 +4,16 @@
 /// Returns nil if |bytes| is NULL.
 static NSString *GADUStringFromUTF8String(const char *bytes) { return bytes ? @(bytes) : nil; }
 
+typedef void (*OnOfferwallOpenCallback)();
+typedef void (*OnOfferwallClosedCallback)();
+
+OnOfferwallOpenCallback offerwallOpenCallback = NULL;
+OnOfferwallClosedCallback offerwallClosedCallback = NULL;
+
+@interface LifeCycleDelegateBridge: NSObject<LifeCycleDelegate>
+@end
+static LifeCycleDelegateBridge *__delegate = nil;
+
 /// Returns a C string from a C array of UTF8-encoded bytes.
 static const char *cStringCopy(const char *string) {
   if (!string) {
@@ -41,6 +51,11 @@ void __setUid(const char *uid) {
     [[Adison shared] setUid:GADUStringFromUTF8String(uid)];
 }
 
+const char* __getUid() {
+    NSString *uid = [Adison shared].uid;
+    return [uid UTF8String];
+}
+
 void __setIsTester(bool enable) {
     [[Adison shared] isTester:enable];
 }
@@ -73,6 +88,24 @@ void __showOfferwall() {
     UIViewController* viewController = UnityGetGLViewController();
     [[Adison shared] presentOfferwall:viewController adId:nil animated:NO completion:nil];
 }
+
+void __setLifeCycleCallbacks(OnOfferwallOpenCallback _offerwallOpenCallback, OnOfferwallClosedCallback _offerwallClosedCallback) {
+    printf("__setLifeCycleDelegate");
+    if (!__delegate) {
+        __delegate = [[LifeCycleDelegateBridge alloc] init];
+    }
+    [[Adison shared] setLifeCycleDelegate:__delegate];
+    offerwallOpenCallback = _offerwallOpenCallback;
+    offerwallClosedCallback = _offerwallClosedCallback;
+}
+
+//CFTypeRef __setLifeCycleDelegate(LifeCycleDelegate *delegate) {
+//    [Adison shared].delegate = delegate
+//    return CFBridgingRetain([[Adison shared]]);
+//}
+//
+//
+
 
 void __setConfig(AdisonConfig *config) {
     [[Adison shared] setConfig:config];
@@ -132,9 +165,18 @@ void __setOnPrimaryColor(AdisonColorScheme *colorScheme, const char *hexString) 
     }
 }
 
+@implementation LifeCycleDelegateBridge
 
+- (void)offerwallOpen {
+    if (offerwallOpenCallback != NULL) {
+        offerwallOpenCallback();
+    }
+}
 
-//void _destroyOfferwallConfig(CFTypeRef config)
-//{
-//    CFRelease(config);
-//}
+- (void)offerwallClosed {
+    if (offerwallClosedCallback != NULL) {
+        offerwallClosedCallback();
+    }
+}
+
+@end

@@ -33,12 +33,18 @@ public class SampleBehaviour : MonoBehaviour
         colorScheme.OnPrimaryColor = "#ffffff";
         Adison.SetColorScheme(colorScheme);
 
-        Adison.LifeCycleListener.OnOfferwallDidClose += HandleCustomEvent;
+        Adison.LifeCycleListener.OnOfferwallOpen += OnOfferwallOpen;
+        Adison.LifeCycleListener.OnOfferwallClosed += OnOfferwallClosed;
     }
 
-    void HandleCustomEvent(object sender, EventArgs e)
+    void OnOfferwallOpen(object sender, EventArgs e)
     {
-        Debug.Log("Close!!" + Adison.GetUid());
+        Debug.Log("__CloseOpen!!");
+    }
+
+    void OnOfferwallClosed(object sender, EventArgs e)
+    {
+        Debug.Log("__Close!!");
     }
 
     // Update is called once per frame
