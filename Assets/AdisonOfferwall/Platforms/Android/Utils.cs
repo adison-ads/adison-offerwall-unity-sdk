@@ -17,6 +17,8 @@ namespace AdisonOfferwall.Android
 
         public const string RequestLoginListenerClassName = "co.adison.offerwall.AdisonOfferwallListener";
 
+        public const string LifeCycleListenerClassName = "co.adison.offerwall.LifeCycleListener";
+
         #endregion
 
         //      #region Google Mobile Ads Unity Plugin class names

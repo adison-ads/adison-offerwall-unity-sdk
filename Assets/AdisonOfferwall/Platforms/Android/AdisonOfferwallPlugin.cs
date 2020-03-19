@@ -23,7 +23,7 @@ namespace AdisonOfferwall.Android
             }
         }
 
-        public static event EventHandler<EventArgs> OnLoginRequested;
+        public static OnLifeCycleListener LifeCycleListener;
 
         public static AndroidJavaObject getContext()
         {
@@ -34,7 +34,9 @@ namespace AdisonOfferwall.Android
         public static void Initialize(string appKey)
         {
             PluginClass.CallStatic("initialize", new object[2] { getContext(), appKey });
-            //setOnLoginRequested(new OnLoginRequestedListener());         
+            
+            LifeCycleListener = new OnLifeCycleListener();
+            PluginClass.CallStatic("setLifeCycleListener", LifeCycleListener);
         }
 
         public static void SetDebugEnabled(bool enable)
@@ -45,6 +47,11 @@ namespace AdisonOfferwall.Android
         public static void SetUid(string uid)
         {
             PluginClass.CallStatic("setUid", uid);
+        }
+
+        public static string GetUid()
+        {
+            return PluginClass.CallStatic<string>("getUid");
         }
 
         public static void SetIsTester(bool enable)
@@ -96,11 +103,6 @@ namespace AdisonOfferwall.Android
             PluginClass.CallStatic("showOfferwall");
         }
 
-        public static void SetOnLoginRequested(OnLoginRequestedListener listener)
-        {
-            PluginClass.CallStatic("setOfferwallListener", listener);
-        }
-
         public static void SetConfig(AdisonConfig config)
         {
             PluginClass.CallStatic("setConfig", config.javaObject);
@@ -111,29 +113,53 @@ namespace AdisonOfferwall.Android
             //PluginClass.CallStatic("setColorScheme", colorScheme.javaObject);
         }
 
-        public class OnLoginRequestedListener : AndroidJavaProxy
+        #region Callbacks from OnLifeCycleListener.
+        public class OnLifeCycleListener : AndroidJavaProxy
         {
-            public OnLoginRequestedListener() : base(Utils.RequestLoginListenerClassName) { }
-            void requestLogin(AndroidJavaObject context)
+            public event EventHandler<EventArgs> OnOfferwallWillOpen;
+            public event EventHandler<EventArgs> OnOfferwallDidOpen;
+            public event EventHandler<EventArgs> OnOfferwallWillClose;
+            public event EventHandler<EventArgs> OnOfferwallDidClose;
+
+            public OnLifeCycleListener() : base(Utils.LifeCycleListenerClassName) { }
+
+            void offerwallWillOpen()
             {
-                Debug.Log("login request");
-                onLoginRequested();
+                //Debug.Log("offerwall will open");
+                if (OnOfferwallWillOpen != null)
+                {
+                    OnOfferwallWillOpen(PluginClass, EventArgs.Empty);
+                }
+            }
+
+            void offerwallDidOpen()
+            {
+                //Debug.Log("offerwall did open");
+                if (OnOfferwallDidOpen != null)
+                {
+                    OnOfferwallDidOpen(PluginClass, EventArgs.Empty);
+                }
+            }
+
+            void offerwallWillClose()
+            {
+                //Debug.Log("offerwall will close");
+                if (OnOfferwallWillClose != null)
+                {
+                    OnOfferwallWillClose(PluginClass, EventArgs.Empty);
+                }
+            }
+
+            void offerwallDidClose()
+            {
+                //Debug.Log("offerwall did close");
+                if (OnOfferwallDidClose != null)
+                {
+                    OnOfferwallDidClose(PluginClass, EventArgs.Empty);
+                }
             }
         }
-
-    #region Callbacks from RequestLoginListener.
-
-        public static void onLoginRequested()
-        {
-            if (OnLoginRequested != null)
-            {
-                OnLoginRequested(PluginClass, EventArgs.Empty);
-            }
-        }
-
-    #endregion
+        #endregion
     }
 #endif
 }
-
-
