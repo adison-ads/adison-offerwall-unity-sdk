@@ -116,47 +116,19 @@ namespace AdisonOfferwall.Android
         #region Callbacks from OnLifeCycleListener.
         public class OnLifeCycleListener : AndroidJavaProxy
         {
-            public event EventHandler<EventArgs> OnOfferwallWillOpen;
-            public event EventHandler<EventArgs> OnOfferwallDidOpen;
-            public event EventHandler<EventArgs> OnOfferwallWillClose;
-            public event EventHandler<EventArgs> OnOfferwallDidClose;
+            public event EventHandler<EventArgs> OnOfferwallOpen;
+            public event EventHandler<EventArgs> OnOfferwallClosed;
 
             public OnLifeCycleListener() : base(Utils.LifeCycleListenerClassName) { }
 
-            void offerwallWillOpen()
+            public void offerwallOpen()
             {
-                //Debug.Log("offerwall will open");
-                if (OnOfferwallWillOpen != null)
-                {
-                    OnOfferwallWillOpen(PluginClass, EventArgs.Empty);
-                }
+                OnOfferwallOpen?.Invoke(this, EventArgs.Empty);
             }
 
-            void offerwallDidOpen()
+            public void offerwallClosed()
             {
-                //Debug.Log("offerwall did open");
-                if (OnOfferwallDidOpen != null)
-                {
-                    OnOfferwallDidOpen(PluginClass, EventArgs.Empty);
-                }
-            }
-
-            void offerwallWillClose()
-            {
-                //Debug.Log("offerwall will close");
-                if (OnOfferwallWillClose != null)
-                {
-                    OnOfferwallWillClose(PluginClass, EventArgs.Empty);
-                }
-            }
-
-            void offerwallDidClose()
-            {
-                //Debug.Log("offerwall did close");
-                if (OnOfferwallDidClose != null)
-                {
-                    OnOfferwallDidClose(PluginClass, EventArgs.Empty);
-                }
+                OnOfferwallClosed?.Invoke(this, EventArgs.Empty);
             }
         }
         #endregion
