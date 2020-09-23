@@ -1,15 +1,15 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)
+// swift-compiler-version: Apple Swift version 5.3 (swiftlang-1200.0.29.2 clang-1200.0.30.1)
 // swift-module-flags: -target x86_64-apple-ios9.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name AdisonOfferwallSDK
 import AdSupport
 @_exported import AdisonOfferwallSDK
 import CoreGraphics
 import CoreTelephony
 import Foundation
-import JavaScriptCore
 import Security
 import Swift
 import UIKit
+import WebKit
 import WebPDecoder
 public protocol ProductDetailView : AnyObject {
 }
@@ -26,31 +26,31 @@ public struct Policy : Swift.Codable {
   public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
-@objc public class AdisonParameters : ObjectiveC.NSObject {
+@objc @_inheritsConvenienceInitializers public class AdisonParameters : ObjectiveC.NSObject {
   public static let os: Swift.String
   public static let osVer: Swift.String
   public static let model: Swift.String
   public static var sdkVer: Swift.String {
     get
   }
-  @objc override dynamic public init()
   @objc deinit
+  @objc override dynamic public init()
 }
-@objc public class NavigationController : UIKit.UINavigationController {
+@objc @_inheritsConvenienceInitializers public class NavigationController : UIKit.UINavigationController {
   @objc override dynamic public func viewDidLoad()
   @objc public func backButtonClicked()
   @objc override dynamic public func dismiss(animated flag: Swift.Bool, completion: (() -> Swift.Void)? = nil)
   @objc override dynamic public var supportedInterfaceOrientations: UIKit.UIInterfaceOrientationMask {
     @objc get
   }
+  @objc deinit
   @available(iOS 5.0, *)
   @objc override dynamic public init(navigationBarClass: Swift.AnyClass?, toolbarClass: Swift.AnyClass?)
   @objc override dynamic public init(rootViewController: UIKit.UIViewController)
   @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
   @objc required dynamic public init?(coder aDecoder: Foundation.NSCoder)
-  @objc deinit
 }
-public class AdisonPointsApiClient {
+@_hasMissingDesignatedInitializers public class AdisonPointsApiClient {
   public class func getUser(uid: Swift.String, onSuccess: @escaping (Foundation.URLResponse?, AdisonOfferwallSDK.User) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
   public class func registUser(uid: Swift.String, onSuccess: @escaping (AdisonOfferwallSDK.User) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
   public class func updateUser(uid: Swift.String, productId: Swift.Int, onSuccess: @escaping (AdisonOfferwallSDK.User) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
@@ -70,10 +70,10 @@ public struct AgeFilter : Swift.Codable {
   public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
-@objc open class AdisonGiftOfwConfig : AdisonOfferwallSDK.AdisonConfig {
+@_inheritsConvenienceInitializers @objc open class AdisonGiftOfwConfig : AdisonOfferwallSDK.AdisonConfig {
   @objc public var startButtonName: Swift.String?
-  @objc override dynamic public init()
   @objc deinit
+  @objc override dynamic public init()
 }
 public struct ParticipateResult : Swift.Codable {
   public init(from decoder: Swift.Decoder) throws
@@ -144,9 +144,9 @@ public struct RewardType : Swift.Codable {
   public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
-@objc public class UserInfo : ObjectiveC.NSObject {
-  @objc override dynamic public init()
+@objc @_inheritsConvenienceInitializers public class UserInfo : ObjectiveC.NSObject {
   @objc deinit
+  @objc override dynamic public init()
 }
 public enum Result<Value> {
   case success(Value)
@@ -158,7 +158,7 @@ public protocol ErrorProtocol {
 public protocol SuccessProtocol {
   func onSuccess(completion: (Swift.String?) -> ()) -> AdisonOfferwallSDK.ErrorProtocol?
 }
-public class AdisonApiClient {
+@_hasMissingDesignatedInitializers public class AdisonApiClient {
   public class func getAdList(from: Swift.String, onSuccess: @escaping (Foundation.URLResponse?, AdisonOfferwallSDK.AdList) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
   public class func getAdDetail(adId: Swift.Int, from: Swift.String, onSuccess: @escaping (AdisonOfferwallSDK.Ad) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
   public class func participate(adId: Swift.Int, onSuccess: @escaping (AdisonOfferwallSDK.ParticipateResult) -> Swift.Void, onError: @escaping (Swift.Error) -> ())
@@ -192,12 +192,12 @@ open class OfferwallListPresenter : AdisonOfferwallSDK.OfferwallListViewPresente
   public func moveToDetail(_ adId: Swift.Int)
   @objc deinit
 }
-@objc public class AdisonError : ObjectiveC.NSObject, Swift.Error, Swift.Codable {
+@_inheritsConvenienceInitializers @objc public class AdisonError : ObjectiveC.NSObject, Swift.Error, Swift.Codable {
   @objc public var code: Swift.Int
   @objc public var message: Swift.String?
+  @objc deinit
   @objc override dynamic public init()
   required public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   public func encode(to encoder: Swift.Encoder) throws
 }
 extension AdisonError : Foundation.LocalizedError {
@@ -213,18 +213,16 @@ extension AdisonError : Foundation.CustomNSError {
     @objc get
   }
 }
-@objc open class SharedWebviewViewController : AdisonOfferwallSDK.BaseViewController {
+@objc @_inheritsConvenienceInitializers open class SharedWebviewViewController : AdisonOfferwallSDK.BaseViewController {
   @objc override dynamic open func viewDidLoad()
   @objc override dynamic open func viewWillAppear(_ animated: Swift.Bool)
   @objc override dynamic open func viewWillDisappear(_ animated: Swift.Bool)
+  @objc deinit
   @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
   @objc required dynamic public init?(coder: Foundation.NSCoder)
-  @objc deinit
 }
-extension SharedWebviewViewController : UIKit.UIWebViewDelegate {
-  @objc dynamic open func webViewDidStartLoad(_ webView: UIKit.UIWebView)
-  @objc dynamic open func webViewDidFinishLoad(_ webView: UIKit.UIWebView)
-  @objc dynamic open func webView(_ webView: UIKit.UIWebView, didFailLoadWithError error: Swift.Error)
+extension SharedWebviewViewController : WebKit.WKScriptMessageHandler {
+  @objc dynamic public func userContentController(_ userContentController: WebKit.WKUserContentController, didReceive message: WebKit.WKScriptMessage)
 }
 public struct ViewItemsInfo : Swift.Codable {
   public let titleBar: Swift.String?
@@ -238,7 +236,7 @@ public struct ViewItemsInfo : Swift.Codable {
   public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
-@objc final public class UIDotLoadingIndicator : UIKit.UIView {
+@objc @_inheritsConvenienceInitializers final public class UIDotLoadingIndicator : UIKit.UIView {
   @objc @IBInspectable final public var dotsCount: Swift.Int {
     @objc get
     @objc set
@@ -262,7 +260,7 @@ public struct ViewItemsInfo : Swift.Codable {
   @objc override final public func layoutSubviews()
   @objc deinit
 }
-@objc open class Adison : ObjectiveC.NSObject {
+@_inheritsConvenienceInitializers @objc open class Adison : ObjectiveC.NSObject {
   @objc open var stage: AdisonOfferwallSDK.Stage
   public var navigationBar: UIKit.UINavigationBar.Type? {
     get
@@ -322,8 +320,8 @@ public struct ViewItemsInfo : Swift.Codable {
     get
     set
   }
-  @objc override dynamic public init()
   @objc deinit
+  @objc override dynamic public init()
 }
 @objc public enum Stage : Swift.Int {
   case development
@@ -369,12 +367,12 @@ public protocol OfferwallListViewPresenter {
   func requestUserInfo2()
   func showChooseProduct(animated: Swift.Bool)
 }
-@objc final public class AJDotLoadingView : UIKit.UIView {
+@objc @_inheritsConvenienceInitializers final public class AJDotLoadingView : UIKit.UIView {
   final public func startAnimating()
   final public func stopAnimating()
+  @objc deinit
   @objc override dynamic public init(frame: CoreGraphics.CGRect)
   @objc required dynamic public init?(coder: Foundation.NSCoder)
-  @objc deinit
 }
 extension AJDotLoadingView : AdisonOfferwallSDK.NibLoadable {
 }
@@ -468,7 +466,7 @@ public protocol OfferwallDetailViewPresenter {
   func registUser()
   func requestUserInfo2()
 }
-@objc open class BaseViewController : UIKit.UIViewController {
+@objc @_inheritsConvenienceInitializers open class BaseViewController : UIKit.UIViewController {
   open var customNavigationController: AdisonOfferwallSDK.NavigationController? {
     get
   }
@@ -490,7 +488,7 @@ public struct ProductInfo : Swift.Codable {
   @objc(participateFailure:) func participateFailure(_ error: AdisonOfferwallSDK.AdisonError)
   @objc(error:) func error(_ error: Swift.Error)
 }
-@objc open class AdisonNavigationBar : UIKit.UINavigationBar {
+@objc @_inheritsConvenienceInitializers open class AdisonNavigationBar : UIKit.UINavigationBar {
   @objc @IBOutlet weak open var contentView: UIKit.UIView!
   @objc @IBOutlet weak open var titleLabel: UIKit.UILabel!
   @objc @IBOutlet weak open var backBarButton: UIKit.UIButton!
@@ -606,12 +604,12 @@ public enum AdStatus : Swift.Int {
   case exceedTimeCap
   case end
   public typealias RawValue = Swift.Int
-  public init?(rawValue: Swift.Int)
   public var rawValue: Swift.Int {
     get
   }
+  public init?(rawValue: Swift.Int)
 }
-@objc public class DefaultOfferwallDetailViewController : AdisonOfferwallSDK.BaseViewController, AdisonOfferwallSDK.OfferwallDetailView {
+@objc @_inheritsConvenienceInitializers public class DefaultOfferwallDetailViewController : AdisonOfferwallSDK.BaseViewController, AdisonOfferwallSDK.OfferwallDetailView {
   public var presenter: AdisonOfferwallSDK.OfferwallDetailViewPresenter!
   public var currentAd: AdisonOfferwallSDK.Ad?
   public var adId: Swift.Int!
@@ -620,9 +618,9 @@ public enum AdStatus : Swift.Int {
   @objc override dynamic public func viewWillDisappear(_ animated: Swift.Bool)
   public func reloadData(from: Swift.String, _ force: Swift.Bool = false)
   public func showNetworkError(retry: Swift.Bool)
+  @objc deinit
   @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
   @objc required dynamic public init?(coder: Foundation.NSCoder)
-  @objc deinit
 }
 extension DefaultOfferwallDetailViewController : AdisonOfferwallSDK.LoginDelegate {
   @objc dynamic public func success()
@@ -635,7 +633,7 @@ public struct ProductList : Swift.Codable {
   public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
-@objc open class AdisonConfig : ObjectiveC.NSObject {
+@_inheritsConvenienceInitializers @objc open class AdisonConfig : ObjectiveC.NSObject {
   @objc public var offerwallListTitle: Swift.String
   @objc public var infoBarHidden: Swift.Bool
   @objc public var prepareViewHidden: Swift.Bool
@@ -657,10 +655,10 @@ public struct UserResult : Swift.Codable {
   public func encode(to encoder: Swift.Encoder) throws
 }
 public struct FiltersInfo : Swift.Codable {
-  public func encode(to encoder: Swift.Encoder) throws
   public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
 }
-public class AdRepository {
+@_hasMissingDesignatedInitializers public class AdRepository {
   public var cacheIsDirty: Swift.Bool {
     get
     set
@@ -671,7 +669,7 @@ public struct PurchaseList : Swift.Codable {
   public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws
 }
-@objc open class AdisonColorScheme : ObjectiveC.NSObject {
+@_inheritsConvenienceInitializers @objc open class AdisonColorScheme : ObjectiveC.NSObject {
   @objc public var primaryColor: UIKit.UIColor
   @objc public var primaryColorVariant: UIKit.UIColor
   @objc public var secondaryColor: UIKit.UIColor
@@ -697,10 +695,10 @@ public protocol OfferwallListView : AnyObject {
   func beforeAction(completion: @escaping (Swift.Int) -> Swift.Void)
   func updateUserView(user: AdisonOfferwallSDK.User?)
 }
-@objc public class UserProfile : ObjectiveC.NSObject {
+@objc @_inheritsConvenienceInitializers public class UserProfile : ObjectiveC.NSObject {
   public static var uid: Swift.String?
-  @objc override dynamic public init()
   @objc deinit
+  @objc override dynamic public init()
 }
 public struct AdList : Swift.Codable {
   public init(from decoder: Swift.Decoder) throws
@@ -716,7 +714,6 @@ public struct User : Swift.Codable {
 @objc public protocol LoginDelegate : AnyObject {
   @objc func success()
 }
-extension AdisonOfferwallSDK.SharedWebviewViewController : JavaScriptCore.JSExport {}
 extension AdisonOfferwallSDK.Stage : Swift.Equatable {}
 extension AdisonOfferwallSDK.Stage : Swift.Hashable {}
 extension AdisonOfferwallSDK.Stage : Swift.RawRepresentable {}
@@ -726,5 +723,6 @@ extension AdisonOfferwallSDK.Gender : Swift.RawRepresentable {}
 extension AdisonOfferwallSDK.ShowStatus : Swift.Equatable {}
 extension AdisonOfferwallSDK.ShowStatus : Swift.Hashable {}
 extension AdisonOfferwallSDK.ShowStatus : Swift.RawRepresentable {}
+extension AdisonOfferwallSDK.AdStatus : Swift.Equatable {}
 extension AdisonOfferwallSDK.AdStatus : Swift.Hashable {}
 extension AdisonOfferwallSDK.AdStatus : Swift.RawRepresentable {}
