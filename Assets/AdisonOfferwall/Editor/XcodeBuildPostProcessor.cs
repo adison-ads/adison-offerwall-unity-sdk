@@ -33,7 +33,11 @@ public static class XcodeBuildPostProcessor
         var projectPath = Path.Combine(pathToBuiltProject, "Unity-iPhone.xcodeproj/project.pbxproj");
 		PBXProject pbxProject = new PBXProject();
 		pbxProject.ReadFromFile(projectPath);
+#if UNITY_2019_3_OR_NEWER
         string target = pbxProject.GetUnityMainTargetGuid();
+#else
+		string target = pbxProject.TargetGuidByName(PBXProject.GetUnityTargetName());
+#endif
 
 		// 빌드 설정 추가
 		pbxProject.SetBuildProperty(target, "ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES", "YES");
